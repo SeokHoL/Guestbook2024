@@ -1,9 +1,16 @@
 package kr.ac.kopo.guestbook2024.repository; // repository 저장소
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import kr.ac.kopo.guestbook2024.entity.Guestbook;
+import kr.ac.kopo.guestbook2024.entity.QGuestbook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -45,6 +52,42 @@ public class GuestbookRepositoryTest {
            guestbookRepository.save(guestbook); //레파지토리는 저장소. 데이터베이스 저장소에 저장
        }
     }
+    
+    //단일항목검색
+    @Test
+    public void testQuery1(){
+        Pageable pageable = PageRequest.of(0,10, Sort.by("gno").descending());
+
+        QGuestbook qGuestbook = QGuestbook.guestbook;
+        String keyword ="1";
+        BooleanBuilder builder = new BooleanBuilder();
+        BooleanExpression exp1 = qGuestbook.title.contains(keyword);
+        builder.and(exp1);
+        Page<Guestbook> result = guestbookRepository.findAll(builder,pageable);
+        result.stream().forEach(guestbook -> {
+            System.out.println(guestbook);
+        });
+    }
+
+    //다중항목검색 및 제한조건식
+    @Test
+    public void testQuery2(){
+        Pageable pageable = PageRequest.of(0,10, Sort.by("gno").descending());
+
+        QGuestbook qGuestbook = QGuestbook.guestbook;
+        String keyword ="2";
+        BooleanBuilder builder = new BooleanBuilder();
+        BooleanExpression exp1 = qGuestbook.title.contains(keyword);
+        BooleanExpression exp2 = qGuestbook.content.contains(keyword);
+        BooleanExpression exp = exp1.or(exp2);
+        builder.and(exp);
+        builder.and(qGuestbook.gno.gt(100L));
+        Page<Guestbook> result = guestbookRepository.findAll(builder,pageable);
+        result.stream().forEach(guestbook -> {
+            System.out.println(guestbook);
+        });
+    }
+
 
 
 
