@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+
+</head>
+<body>
+    <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}"> <!-- 현재 템플릿의 content 부분을 layout/basic 파일의 setContent 부분으로 대체한다는 의미입니다 -->
+        <th:block th:fragment="content">
+            <h1 class="">Register Page</h1>
+            <form th:action="@{/guestbook/register}" th:method="post"> <!--th:method="post"로 해야 controller에 있는 post가 실행됨 -->
+                <div class="form-group">
+                    <label>Title:</label>
+                    <input type="text" name="title" placeholder="Enter Title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Content:</label>
+                    <textarea name="content" rows="5" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Writer:</label>
+                    <input type="text" name="writer" placeholder="Enter writer" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary form-group">Register</button>
+            </form>
+        </th:block>
+    </th:block>
+
+</body>
+</html>

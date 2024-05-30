@@ -10,6 +10,7 @@ public interface GuestbookService {
     Long register(GuestbookDTO dto); //명세(영수증처럼)만 해놓은거임. 여기서 구현x
    //한 페이지에 보여지는 글 목록이 저장된 list정보를 갖고 있는 PageResultDTO 객체 참조값을 반환하는 기능
     PageResultDTO<GuestbookDTO , Guestbook> getList(PageRequestDTO requestDTO);
+    GuestbookDTO read(Long gno);
 
     default Guestbook dtoToEntity(GuestbookDTO dto){      //매개변수 dto를 받아서 Entity로 바꾼다
 

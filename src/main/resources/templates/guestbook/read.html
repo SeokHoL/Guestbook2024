@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+
+</head>
+<body>
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}"> <!-- 현재 템플릿의 content 부분을 layout/basic 파일의 setContent 부분으로 대체한다는 의미입니다 -->
+    <th:block th:fragment="content">
+        <h1 class="">Register Page</h1>
+            <div class="form-group">
+                <label>Gno:</label>
+                <input type="text" name="gno"  class="form-control" th:value="${dto.gno}" readonly>
+            </div>
+            <div class="form-group">
+                <label>Title:</label>
+                <input type="text" name="title"  class="form-control" th:value="${dto.title}" readonly>
+            </div>
+            <div class="form-group">
+                <label>Content:</label>
+                <textarea name="content" rows="5" class="form-control" readonly>[[${dto.content}]]</textarea>
+            </div>
+            <div class="form-group">
+                <label>Writer:</label>
+                <input type="text" name="writer" class="form-control" th:value="${dto.writer}" readonly>
+            </div>
+            <div class="form-group">
+                <label>RegDate:</label>
+                <input type="text" name="regDate"  class="form-control" th:value="${#temporals.format(dto.regDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+            </div>
+            <div class="form-group">
+                <label>ModifyDate:</label>
+                <input type="text" name="modifyDate"  class="form-control" th:value="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+            </div>
+        <a th:href="@{/guestbook/modify(gno = ${dto.gno}, page=${requestDTO.page})}"> <!--gno = ${dto.gno}, page=${requestDTO.page} 이건 파라미터 값. -->
+            <button type="button" class="btn btn-primary form-group">Modify</button>
+        </a>
+        <a th:href="@{/guestbook/list(page=${requestDTO.page})}"> <!--gno = ${dto.gno}, page=${requestDTO.page} 이건 파라미터 값. -->
+            <button type="button" class="btn btn-info form-group">List</button>
+        </a>
+
+    </th:block>
+</th:block>
+
+</body>
+</html>
