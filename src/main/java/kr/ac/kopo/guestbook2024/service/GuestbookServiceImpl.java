@@ -39,8 +39,29 @@ public class GuestbookServiceImpl implements GuestbookService{
 
     @Override
     public GuestbookDTO read(Long gno) {
-        Optional<Guestbook> result =repository.findById(gno);
+      Optional<Guestbook> result =repository.findById(gno); //주어진 ID를 이용해 데이터베이스에서 해당 엔티티를 찾습니다. //gno는 검색할 엔티티의 ID 값입니다
 
         return result.isPresent()? entityToDto(result.get()) : null; //받는게 하나라 삼항연사자 사용.
+    }
+
+    @Override
+    public void modify(GuestbookDTO dto) {
+        Optional<Guestbook> result = repository.findById(dto.getGno());
+
+        if(result.isPresent()){
+            Guestbook entity = result.get();  //get()을 통해 Optional 포장을 벗김
+            entity.changeTitle(dto.getTitle());
+            entity.changeContent(dto.getContent());
+
+            repository.save(entity);  //제목과 내용을 바꾸고 레파지토리에 다시 업데이트 함.
+
+        }
+
+
+    }
+
+    @Override
+    public void remove(Long gno) {
+        repository.deleteById(gno);
     }
 }
