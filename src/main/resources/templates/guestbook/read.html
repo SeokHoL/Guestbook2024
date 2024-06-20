@@ -33,10 +33,10 @@
                 <label>ModifyDate:</label>
                 <input type="text" name="modifyDate"  class="form-control" th:value="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}" readonly>
             </div>
-        <a th:href="@{/guestbook/modify(gno = ${dto.gno}, page=${requestDTO.page})}"> <!--gno = ${dto.gno}, page=${requestDTO.page} 이건 파라미터 값. -->
+        <a th:href="@{/guestbook/modify(gno = ${dto.gno}, page=${requestDTO.page},type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}"> <!--gno = ${dto.gno}, page=${requestDTO.page} 이건 파라미터 값. -->
             <button type="button" class="btn btn-primary form-group">Modify</button>
         </a>
-        <a th:href="@{/guestbook/list(page=${requestDTO.page})}"> <!--gno = ${dto.gno}, page=${requestDTO.page} 이건 파라미터 값. -->
+        <a th:href="@{/guestbook/list(page=${requestDTO.page},type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}"> <!--gno = ${dto.gno}, page=${requestDTO.page} 이건 파라미터 값. -->
             <button type="button" class="btn btn-info form-group">List</button>
         </a>
 
