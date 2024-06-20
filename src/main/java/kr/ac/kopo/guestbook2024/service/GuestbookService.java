@@ -1,5 +1,6 @@
 package kr.ac.kopo.guestbook2024.service;
 
+import com.querydsl.core.BooleanBuilder;
 import kr.ac.kopo.guestbook2024.dto.GuestbookDTO;
 import kr.ac.kopo.guestbook2024.dto.PageRequestDTO;
 import kr.ac.kopo.guestbook2024.dto.PageResultDTO;
@@ -16,6 +17,9 @@ public interface GuestbookService {
 
     void modify(GuestbookDTO dto);
     void remove(Long gno);
+    //검색기능(QueryDsl 사용)
+    BooleanBuilder getSearch(PageRequestDTO requestDTO);
+    
 
     default Guestbook dtoToEntity(GuestbookDTO dto){      //매개변수 dto를 받아서 Entity로 바꾼다
 
